@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">JWD monogram</title>
+  <desc id="desc">The initials JWD in white on a mineral blue plane over deep midnight blue, crossed by a rising coral line.</desc>
+  <rect width="512" height="512" fill="#041126"/>
+  <path d="M48 48h416l-67 416H48z" fill="#2b788d"/>
+  <text x="242" y="326" fill="#fff" font-family="Barlow Condensed, Arial Narrow, sans-serif" font-size="192" font-weight="700" letter-spacing="-6" text-anchor="middle">JWD</text>
+  <path d="M72 414l316-54-5 31-311 55z" fill="#d9432f"/>
+</svg>
