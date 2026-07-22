@@ -11,7 +11,7 @@ npm run dev
 
 ## Connect the blog
 
-Create the Substack, then add its full public URL to `site.substack.url` in `src/config/site.ts`. The header, homepage Blog block, and Blog page will then link directly to Substack. Posts and subscribers remain managed there.
+The header, homepage Blog block, and Blog page link to `https://johnwilldye.substack.com/`. Posts and subscribers remain managed there. If the publication URL changes, update `site.substack.url` and `site.substack.feedUrl` in `src/config/site.ts`.
 
 ## Add published fiction
 
@@ -23,7 +23,7 @@ Site-wide voice-bearing placeholders live in `src/config/site.ts`; work-specific
 
 ## Publish
 
-The included GitHub Actions workflow builds and publishes the site whenever the `main` branch is pushed. In the repository settings, set Pages to use **GitHub Actions**. The Astro configuration automatically accounts for a repository subpath and can be simplified when a custom domain is added.
+The included GitHub Actions workflow builds and publishes the site whenever the `main` branch is pushed. GitHub Pages uses `johnwilldye.com` as its custom domain; `public/CNAME`, `astro.config.mjs`, and the repository Pages setting must stay aligned.
 
 ## Embargo
 

@@ -47,11 +47,11 @@ test("public profiles are present on the contact page", async () => {
   assert.match(html, /facebook\.com\/john\.dye\.572064/);
 });
 
-test("the blog handoff is safe before a Substack URL is configured", async () => {
+test("the blog handoff points to the live Substack", async () => {
   const home = await readRoute("index");
   const blog = await readRoute("blog/index");
-  assert.match(home, /SUBSTACK URL/);
-  assert.match(blog, /SUBSTACK URL/);
-  assert.doesNotMatch(home, /href=""/);
-  assert.doesNotMatch(blog, /href=""/);
+  assert.match(home, /https:\/\/johnwilldye\.substack\.com\//);
+  assert.match(blog, /https:\/\/johnwilldye\.substack\.com\//);
+  assert.doesNotMatch(home, /SUBSTACK URL/);
+  assert.doesNotMatch(blog, /SUBSTACK URL/);
 });

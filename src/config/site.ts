@@ -27,6 +27,7 @@ export const site = {
     directContact: "CONTACT ADDRESS OR FORM — JOHN TO PROVIDE",
   },
   substack: {
-    url: "",
+    url: "https://johnwilldye.substack.com/",
+    feedUrl: "https://johnwilldye.substack.com/feed",
   },
 } as const;
