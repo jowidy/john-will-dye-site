@@ -9,6 +9,7 @@ interface Props {
 
 const { path, overHero = false } = Astro.props;
 const homePath = withBase("/");
+const substackUrl = site.substack.url.trim();
 ---
 
 <header class:list={["site-header", { "site-header--hero": overHero }]}>
@@ -19,13 +20,15 @@ const homePath = withBase("/");
     <ul>
       {
         site.nav.map((item) => {
-          const href = withBase(item.href);
+          const external = item.href === "/blog/" && Boolean(substackUrl);
+          const href = external ? substackUrl : withBase(item.href);
           const isHome = item.href === "/";
-          const active = isHome ? path === href : path.startsWith(href);
+          const active = external ? false : isHome ? path === href : path.startsWith(href);
           return (
             <li>
               <a href={href} aria-current={active ? "page" : undefined}>
                 {item.label}
+                {external && <span class="visually-hidden"> on Substack</span>}
               </a>
             </li>
           );

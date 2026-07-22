@@ -2,7 +2,7 @@
 /*
 THESIS: Human capability breaks the frame; reject the portrait-plus-book-grid author-site default.
 OWN-WORLD: Midnight, mineral teal, coral, and sun-gold; painted action, rising planes, blunt type.
-STORY: A reader encounters dangerous movement, recognizes the author, then chooses Fiction or Journal.
+STORY: A reader encounters dangerous movement, recognizes the author, then chooses Fiction or Blog.
 FIRST VIEWPORT: Full-bleed ascent artwork; the name fills the dark left field; actions sit below the placeholder line.
 FORM: Cinematic pulp-adventure title sequence, selected from the user-pinned promise of transformation and motion; seed 73d61e1d.
 */
@@ -17,14 +17,8 @@ import hero from "../assets/hero-ascent.png";
 const fiction = (await getCollection("fiction", ({ data }) => !data.draft))
   .sort((a, b) => b.data.order - a.data.order)
   .slice(0, 3);
-const journal = (await getCollection("journal", ({ data }) => !data.draft))
-  .sort((a, b) => b.data.published.valueOf() - a.data.published.valueOf())
-  .slice(0, 3);
-const date = new Intl.DateTimeFormat("en-US", {
-  month: "short",
-  day: "numeric",
-  year: "numeric",
-});
+const substackUrl = site.substack.url.trim();
+const blogHref = substackUrl || withBase("/blog/");
 ---
 
 <BaseLayout overHero>
@@ -46,7 +40,7 @@ const date = new Intl.DateTimeFormat("en-US", {
       <Placeholder text={site.copy.homeLede} block />
       <div class="hero__actions">
         <a class="action action--primary" href={withBase("/fiction/")}>Browse fiction</a>
-        <a class="action action--quiet" href={withBase("/journal/")}>Read the journal</a>
+        <a class="action action--quiet" href={blogHref}>Read the blog</a>
       </div>
     </div>
     <p class="hero__asset-note">Concept artwork for this first draft; not story canon.</p>
@@ -78,27 +72,21 @@ const date = new Intl.DateTimeFormat("en-US", {
     <a class="section-link" href={withBase("/fiction/")}>Browse fiction</a>
   </section>
 
-  <section class="home-journal" aria-labelledby="journal-title">
+  <section class="home-blog" id="blog" aria-labelledby="blog-title">
     <div class="home-section__heading">
-      <p>News and working notes</p>
-      <h2 id="journal-title">Journal</h2>
-      <Placeholder text={site.copy.journalIntro} />
+      <p>News, events, and editions</p>
+      <h2 id="blog-title">Blog</h2>
+      <Placeholder text={site.copy.blogIntro} />
     </div>
-    {
-      journal.length > 0 ? (
-        <ol class="home-journal-list">
-          {journal.map((entry) => (
-            <li>
-              <time datetime={entry.data.published.toISOString()}>{date.format(entry.data.published)}</time>
-              <a href={withBase(`/journal/${entry.id}/`)}>{entry.data.title}</a>
-            </li>
-          ))}
-        </ol>
-      ) : (
-        <p class="journal-empty">No public journal entries yet.</p>
-      )
-    }
-    <a class="section-link section-link--light" href={withBase("/journal/")}>Read the journal</a>
+    <div class="home-blog__destination">
+      {
+        substackUrl ? (
+          <a href={substackUrl}>Read on Substack <span aria-hidden="true">↗</span></a>
+        ) : (
+          <Placeholder text={site.copy.substackUrl} block />
+        )
+      }
+    </div>
   </section>
 
   <section class="home-close" aria-label="About and contact">
@@ -221,7 +209,7 @@ const date = new Intl.DateTimeFormat("en-US", {
   }
 
   .home-fiction,
-  .home-journal {
+  .home-blog {
     display: grid;
     grid-template-columns: minmax(18rem, 0.7fr) minmax(20rem, 1.3fr);
     gap: clamp(3rem, 8vw, 9rem);
@@ -242,7 +230,7 @@ const date = new Intl.DateTimeFormat("en-US", {
     content: "";
   }
 
-  .home-journal {
+  .home-blog {
     background: var(--midnight);
     color: var(--sky);
   }
@@ -256,7 +244,7 @@ const date = new Intl.DateTimeFormat("en-US", {
     text-transform: uppercase;
   }
 
-  .home-journal .home-section__heading > p {
+  .home-blog .home-section__heading > p {
     color: var(--sun);
   }
 
@@ -268,15 +256,13 @@ const date = new Intl.DateTimeFormat("en-US", {
     line-height: 0.8;
   }
 
-  .home-work-list,
-  .home-journal-list {
+  .home-work-list {
     margin: 0;
     padding: 0;
     list-style: none;
   }
 
-  .home-work-list li,
-  .home-journal-list li {
+  .home-work-list li {
     display: grid;
     grid-template-columns: 1fr auto;
     gap: 1rem;
@@ -284,8 +270,7 @@ const date = new Intl.DateTimeFormat("en-US", {
     border-bottom: 1px solid currentColor;
   }
 
-  .home-work-list a,
-  .home-journal-list a {
+  .home-work-list a {
     font-family: var(--font-display);
     font-size: clamp(1.8rem, 4vw, 3rem);
     font-weight: 700;
@@ -305,8 +290,7 @@ const date = new Intl.DateTimeFormat("en-US", {
     box-shadow: 0.9rem 1rem 0 var(--midnight);
   }
 
-  .home-empty p,
-  .journal-empty {
+  .home-empty p {
     margin: 0;
     font-size: 1.2rem;
   }
@@ -329,6 +313,33 @@ const date = new Intl.DateTimeFormat("en-US", {
 
   .section-link--light {
     color: var(--sun);
+  }
+
+  .home-blog__destination {
+    align-self: start;
+    padding-block: 1.5rem;
+    border-block: 2px solid var(--sun);
+  }
+
+  .home-blog__destination a {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 2rem;
+    color: var(--sky);
+    font-family: var(--font-display);
+    font-size: clamp(2.4rem, 6vw, 4.8rem);
+    font-weight: 700;
+    line-height: 0.92;
+    text-decoration-color: var(--coral);
+  }
+
+  .home-blog__destination a:hover {
+    color: var(--sun);
+  }
+
+  .home-blog__destination span {
+    color: var(--coral);
   }
 
   .home-close {
@@ -422,13 +433,13 @@ const date = new Intl.DateTimeFormat("en-US", {
     }
 
     .home-fiction,
-    .home-journal,
+    .home-blog,
     .home-close {
       grid-template-columns: 1fr;
     }
 
     .home-fiction,
-    .home-journal {
+    .home-blog {
       gap: 3rem;
     }
 

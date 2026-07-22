@@ -4,7 +4,7 @@ export const site = {
   nav: [
     { label: "Home", href: "/" },
     { label: "Fiction", href: "/fiction/" },
-    { label: "Journal", href: "/journal/" },
+    { label: "Blog", href: "/blog/" },
     { label: "About", href: "/about/" },
     { label: "Contact", href: "/contact/" },
   ],
@@ -19,10 +19,14 @@ export const site = {
   copy: {
     homeLede: "HOMEPAGE INTRODUCTION — JOHN TO WRITE",
     fictionIntro: "FICTION INTRODUCTION — JOHN TO WRITE",
-    journalIntro: "JOURNAL INTRODUCTION — JOHN TO WRITE",
+    blogIntro: "BLOG / SUBSTACK INTRODUCTION — JOHN TO WRITE",
+    substackUrl: "SUBSTACK URL — JOHN TO PROVIDE",
     aboutShort: "SHORT AUTHOR INTRODUCTION — JOHN TO WRITE",
     aboutLong: "AUTHOR BIOGRAPHY — JOHN TO WRITE OR APPROVE",
     contactIntro: "CONTACT INTRODUCTION — JOHN TO WRITE",
     directContact: "CONTACT ADDRESS OR FORM — JOHN TO PROVIDE",
+  },
+  substack: {
+    url: "",
   },
 } as const;

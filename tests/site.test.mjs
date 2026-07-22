@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
 
-const routes = ["index", "fiction/index", "journal/index", "about/index", "contact/index"];
+const routes = ["index", "fiction/index", "blog/index", "about/index", "contact/index"];
 
 async function readRoute(route) {
   return readFile(new URL(`../dist/${route}.html`, import.meta.url), "utf8");
@@ -13,7 +13,8 @@ test("all primary routes build with navigation and the author name", async () =>
     const html = await readRoute(route);
     assert.match(html, /John Will Dye/);
     assert.match(html, /Browse fiction|Fiction/);
-    assert.match(html, /Journal/);
+    assert.match(html, /Blog/);
+    assert.doesNotMatch(html, /Journal/);
     assert.match(html, /About/);
     assert.match(html, /Contact/);
   }
@@ -44,4 +45,13 @@ test("public profiles are present on the contact page", async () => {
   assert.match(html, /goodreads\.com/);
   assert.match(html, /x\.com\/johndyewrites/);
   assert.match(html, /facebook\.com\/john\.dye\.572064/);
+});
+
+test("the blog handoff is safe before a Substack URL is configured", async () => {
+  const home = await readRoute("index");
+  const blog = await readRoute("blog/index");
+  assert.match(home, /SUBSTACK URL/);
+  assert.match(blog, /SUBSTACK URL/);
+  assert.doesNotMatch(home, /href=""/);
+  assert.doesNotMatch(blog, /href=""/);
 });

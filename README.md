@@ -9,9 +9,9 @@ npm install
 npm run dev
 ```
 
-## Add a journal entry
+## Connect the blog
 
-Copy `src/content/journal/_template.md`, remove the leading underscore from the new filename, replace the frontmatter and body, and set `draft: false` when the entry is public.
+Create the Substack, then add its full public URL to `site.substack.url` in `src/config/site.ts`. The header, homepage Blog block, and Blog page will then link directly to Substack. Posts and subscribers remain managed there.
 
 ## Add published fiction
 

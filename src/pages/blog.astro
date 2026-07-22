@@ -1,0 +1,55 @@
+---
+import BaseLayout from "../components/BaseLayout.astro";
+import PageIntro from "../components/PageIntro.astro";
+import Placeholder from "../components/Placeholder.astro";
+import { site } from "../config/site";
+
+const substackUrl = site.substack.url.trim();
+---
+
+<BaseLayout title="Blog" description="News and updates from John Will Dye.">
+  <section class="page-shell page-shell--sky">
+    <PageIntro title="Blog">
+      <Placeholder text={site.copy.blogIntro} block />
+    </PageIntro>
+    <div class="substack-destination">
+      {
+        substackUrl ? (
+          <a href={substackUrl}>Read on Substack <span aria-hidden="true">↗</span></a>
+        ) : (
+          <Placeholder text={site.copy.substackUrl} block />
+        )
+      }
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .substack-destination {
+    max-width: 82rem;
+    margin: 0 auto;
+    padding-block: clamp(2rem, 6vw, 4rem);
+    border-block: 2px solid var(--ink);
+  }
+
+  .substack-destination a {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 2rem;
+    color: var(--ink);
+    font-family: var(--font-display);
+    font-size: clamp(3rem, 8vw, 6rem);
+    font-weight: 700;
+    line-height: 0.9;
+    text-decoration-color: var(--coral);
+  }
+
+  .substack-destination a:hover {
+    color: var(--coral-dark);
+  }
+
+  .substack-destination span {
+    color: var(--coral);
+  }
+</style>
