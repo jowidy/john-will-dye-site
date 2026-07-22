@@ -55,3 +55,16 @@ test("the blog handoff points to the live Substack", async () => {
   assert.doesNotMatch(home, /SUBSTACK URL/);
   assert.doesNotMatch(blog, /SUBSTACK URL/);
 });
+
+test("the navigation remains legible while it sticks during scrolling", async () => {
+  const header = await readFile(new URL("../src/components/SiteHeader.astro", import.meta.url), "utf8");
+  const styles = await readFile(new URL("../src/styles/global.css", import.meta.url), "utf8");
+
+  assert.match(header, /data-site-header/);
+  assert.match(header, /site-header--scrolled/);
+  assert.match(header, /window\.scrollY > 12/);
+  assert.match(styles, /\.site-header\s*{[^}]*position:\s*sticky/s);
+  assert.match(styles, /\.site-header--hero\s*{[^}]*position:\s*fixed/s);
+  assert.match(styles, /\.site-header--hero\.site-header--scrolled::after\s*{[^}]*opacity:\s*1/s);
+  assert.match(styles, /@media \(prefers-reduced-motion: reduce\)/);
+});

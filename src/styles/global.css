@@ -14,6 +14,7 @@
   --measure: 68ch;
   --gutter: clamp(1.25rem, 4vw, 4.5rem);
   --section-space: clamp(5rem, 10vw, 9rem);
+  --header-offset: 5rem;
   --focus: 3px solid var(--sun);
 }
 
@@ -25,6 +26,7 @@ html {
   background: var(--night-deep);
   color-scheme: dark;
   scroll-behavior: smooth;
+  scroll-padding-top: var(--header-offset);
 }
 
 body {
@@ -84,8 +86,9 @@ summary:focus-visible {
 }
 
 .site-header {
-  position: relative;
-  z-index: 20;
+  position: sticky;
+  z-index: 30;
+  top: 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -97,9 +100,38 @@ summary:focus-visible {
 }
 
 .site-header--hero {
-  position: absolute;
+  position: fixed;
   inset: 0 0 auto;
+  isolation: isolate;
+  background: transparent;
+}
+
+.site-header--hero::before,
+.site-header--hero::after {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  content: "";
+  pointer-events: none;
+  transition: opacity 220ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.site-header--hero::before {
   background: linear-gradient(to bottom, rgb(4 17 38 / 0.78), transparent);
+  opacity: 1;
+}
+
+.site-header--hero::after {
+  background: rgb(7 27 58 / 0.98);
+  opacity: 0;
+}
+
+.site-header--hero.site-header--scrolled::before {
+  opacity: 0;
+}
+
+.site-header--hero.site-header--scrolled::after {
+  opacity: 1;
 }
 
 .site-mark {
@@ -338,6 +370,10 @@ summary:focus-visible {
 }
 
 @media (max-width: 760px) {
+  :root {
+    --header-offset: 7rem;
+  }
+
   body {
     font-size: 1.0625rem;
   }
@@ -345,11 +381,6 @@ summary:focus-visible {
   .site-header {
     align-items: flex-start;
     min-height: auto;
-  }
-
-  .site-header--hero {
-    position: relative;
-    background: var(--night-deep);
   }
 
   .site-header nav ul {

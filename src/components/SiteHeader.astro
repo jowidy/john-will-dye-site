@@ -12,7 +12,7 @@ const homePath = withBase("/");
 const substackUrl = site.substack.url.trim();
 ---
 
-<header class:list={["site-header", { "site-header--hero": overHero }]}>
+<header class:list={["site-header", { "site-header--hero": overHero }]} data-site-header>
   <a class="site-mark" href={homePath} aria-label={`${site.name}, home`}>
     <span aria-hidden="true">JWD</span>
   </a>
@@ -37,3 +37,25 @@ const substackUrl = site.substack.url.trim();
     </ul>
   </nav>
 </header>
+
+<script>
+  const header = document.querySelector<HTMLElement>("[data-site-header]");
+
+  if (header?.classList.contains("site-header--hero")) {
+    let animationFrame = 0;
+
+    const updateHeader = () => {
+      animationFrame = 0;
+      header.classList.toggle("site-header--scrolled", window.scrollY > 12);
+    };
+
+    const scheduleHeaderUpdate = () => {
+      if (animationFrame === 0) {
+        animationFrame = window.requestAnimationFrame(updateHeader);
+      }
+    };
+
+    updateHeader();
+    window.addEventListener("scroll", scheduleHeaderUpdate, { passive: true });
+  }
+</script>
