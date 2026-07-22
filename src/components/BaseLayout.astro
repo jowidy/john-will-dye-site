@@ -1,0 +1,47 @@
+---
+import "@fontsource/barlow-condensed/600.css";
+import "@fontsource/barlow-condensed/700.css";
+import "@fontsource/atkinson-hyperlegible-next/400.css";
+import "@fontsource/atkinson-hyperlegible-next/700.css";
+import "../styles/global.css";
+import { site } from "../config/site";
+import SiteHeader from "./SiteHeader.astro";
+import SiteFooter from "./SiteFooter.astro";
+
+interface Props {
+  title?: string;
+  description?: string;
+  overHero?: boolean;
+  hideFooter?: boolean;
+}
+
+const {
+  title = site.name,
+  description = site.description,
+  overHero = false,
+  hideFooter = false,
+} = Astro.props;
+const pageTitle = title === site.name ? title : `${title} — ${site.name}`;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#071b3a" />
+    <link rel="canonical" href={canonical} />
+    <title>{pageTitle}</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <SiteHeader path={Astro.url.pathname} overHero={overHero} />
+    <main id="main-content">
+      <slot />
+    </main>
+    {!hideFooter && <SiteFooter />}
+  </body>
+</html>

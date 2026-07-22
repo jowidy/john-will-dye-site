@@ -1,0 +1,19 @@
+---
+import { site } from "../config/site";
+---
+
+<footer class="site-footer">
+  <p class="site-footer__name">{site.name}</p>
+  <ul aria-label="Social profiles">
+    {
+      site.socials.map((social) => (
+        <li>
+          <a href={social.href} rel="me noopener noreferrer" target="_blank">
+            {social.label}<span class="visually-hidden"> (opens in a new tab)</span>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+  <p class="site-footer__legal">© {new Date().getFullYear()} {site.name}</p>
+</footer>

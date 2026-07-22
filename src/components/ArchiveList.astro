@@ -1,0 +1,41 @@
+---
+import { withBase } from "../lib/url";
+
+interface Item {
+  title: string;
+  meta: string;
+  href: string;
+  description?: string;
+  external?: boolean;
+}
+
+interface Props {
+  items: Item[];
+  emptyText: string;
+}
+
+const { items, emptyText } = Astro.props;
+---
+
+{
+  items.length > 0 ? (
+    <ol class="archive-list">
+      {items.map((item) => (
+        <li>
+          <p class="archive-list__meta">{item.meta}</p>
+          <h2>
+            <a
+              href={item.external ? item.href : withBase(item.href)}
+              rel={item.external ? "noopener noreferrer" : undefined}
+            >
+              {item.title}
+            </a>
+          </h2>
+          {item.description && <p>{item.description}</p>}
+        </li>
+      ))}
+    </ol>
+  ) : (
+    <p class="empty-state">{emptyText}</p>
+  )
+}

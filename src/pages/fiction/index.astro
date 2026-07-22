@@ -1,0 +1,27 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../components/BaseLayout.astro";
+import PageIntro from "../../components/PageIntro.astro";
+import Placeholder from "../../components/Placeholder.astro";
+import ArchiveList from "../../components/ArchiveList.astro";
+import { site } from "../../config/site";
+
+const entries = (await getCollection("fiction", ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.order - a.data.order || b.data.year - a.data.year,
+);
+const items = entries.map((entry) => ({
+  title: entry.data.title,
+  meta: `${entry.data.publication} · ${entry.data.year}`,
+  href: `/fiction/${entry.id}/`,
+  description: entry.data.description,
+}));
+---
+
+<BaseLayout title="Fiction" description="Published fiction by John Will Dye.">
+  <section class="page-shell page-shell--sky">
+    <PageIntro title="Fiction" label="Published work">
+      <Placeholder text={site.copy.fictionIntro} block />
+    </PageIntro>
+    <ArchiveList items={items} emptyText="Cleared publications will appear here." />
+  </section>
+</BaseLayout>

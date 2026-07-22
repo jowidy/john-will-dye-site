@@ -1,0 +1,67 @@
+---
+import BaseLayout from "../components/BaseLayout.astro";
+import PageIntro from "../components/PageIntro.astro";
+import Placeholder from "../components/Placeholder.astro";
+import { site } from "../config/site";
+---
+
+<BaseLayout title="About" description="About fiction writer John Will Dye.">
+  <section class="page-shell page-shell--sky">
+    <PageIntro title="About John">
+      <Placeholder text={site.copy.aboutShort} block />
+    </PageIntro>
+    <div class="about-grid">
+      <div class="about-copy">
+        <Placeholder text={site.copy.aboutLong} block />
+      </div>
+      <aside>
+        <h2>Representation</h2>
+        <p>
+          John is represented by <a href="https://www.ethanellenberg.com/agents/evan-gregory/">Evan J Gregory</a>
+          at Ethan Ellenberg Literary Agency.
+        </p>
+      </aside>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .about-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.35fr) minmax(18rem, 0.65fr);
+    gap: clamp(3rem, 8vw, 9rem);
+    max-width: 82rem;
+    margin: 0 auto;
+  }
+
+  .about-copy {
+    min-height: 20rem;
+  }
+
+  aside {
+    align-self: start;
+    padding-top: 1.2rem;
+    border-top: 0.4rem solid var(--mineral);
+  }
+
+  aside h2 {
+    margin: 0 0 0.8rem;
+    font-family: var(--font-display);
+    font-size: 2.2rem;
+  }
+
+  aside p {
+    margin: 0;
+  }
+
+  aside a {
+    color: var(--coral-dark);
+    font-weight: 700;
+  }
+
+  @media (max-width: 760px) {
+    .about-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

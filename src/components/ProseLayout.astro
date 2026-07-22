@@ -1,0 +1,18 @@
+---
+interface Props {
+  title: string;
+  meta?: string;
+}
+
+const { title, meta } = Astro.props;
+---
+
+<article class="prose-shell">
+  <header>
+    {meta && <p class="prose-shell__meta">{meta}</p>}
+    <h1>{title}</h1>
+  </header>
+  <div class="prose">
+    <slot />
+  </div>
+</article>

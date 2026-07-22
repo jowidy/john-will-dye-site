@@ -1,0 +1,36 @@
+---
+import { site } from "../config/site";
+import { withBase } from "../lib/url";
+
+interface Props {
+  path: string;
+  overHero?: boolean;
+}
+
+const { path, overHero = false } = Astro.props;
+const homePath = withBase("/");
+---
+
+<header class:list={["site-header", { "site-header--hero": overHero }]}>
+  <a class="site-mark" href={homePath} aria-label={`${site.name}, home`}>
+    <span aria-hidden="true">JWD</span>
+  </a>
+  <nav aria-label="Primary navigation">
+    <ul>
+      {
+        site.nav.map((item) => {
+          const href = withBase(item.href);
+          const isHome = item.href === "/";
+          const active = isHome ? path === href : path.startsWith(href);
+          return (
+            <li>
+              <a href={href} aria-current={active ? "page" : undefined}>
+                {item.label}
+              </a>
+            </li>
+          );
+        })
+      }
+    </ul>
+  </nav>
+</header>

@@ -1,0 +1,450 @@
+---
+/*
+THESIS: Human capability breaks the frame; reject the portrait-plus-book-grid author-site default.
+OWN-WORLD: Midnight, mineral teal, coral, and sun-gold; painted action, rising planes, blunt type.
+STORY: A reader encounters dangerous movement, recognizes the author, then chooses Fiction or Journal.
+FIRST VIEWPORT: Full-bleed ascent artwork; the name fills the dark left field; actions sit below the placeholder line.
+FORM: Cinematic pulp-adventure title sequence, selected from the user-pinned promise of transformation and motion; seed 73d61e1d.
+*/
+import { getCollection } from "astro:content";
+import { Image } from "astro:assets";
+import BaseLayout from "../components/BaseLayout.astro";
+import Placeholder from "../components/Placeholder.astro";
+import { site } from "../config/site";
+import { withBase } from "../lib/url";
+import hero from "../assets/hero-ascent.png";
+
+const fiction = (await getCollection("fiction", ({ data }) => !data.draft))
+  .sort((a, b) => b.data.order - a.data.order)
+  .slice(0, 3);
+const journal = (await getCollection("journal", ({ data }) => !data.draft))
+  .sort((a, b) => b.data.published.valueOf() - a.data.published.valueOf())
+  .slice(0, 3);
+const date = new Intl.DateTimeFormat("en-US", {
+  month: "short",
+  day: "numeric",
+  year: "numeric",
+});
+---
+
+<BaseLayout overHero>
+  <section class="hero" aria-labelledby="site-title">
+    <div class="hero__image">
+      <Image
+        src={hero}
+        alt="Two people pull together on a line attached to a damaged aircraft climbing through a violent, luminous landscape."
+        widths={[640, 960, 1440, 1920]}
+        sizes="100vw"
+        format="webp"
+        quality={88}
+        loading="eager"
+      />
+    </div>
+    <div class="hero__shade" aria-hidden="true"></div>
+    <div class="hero__content">
+      <h1 id="site-title">John<br />Will Dye</h1>
+      <Placeholder text={site.copy.homeLede} block />
+      <div class="hero__actions">
+        <a class="action action--primary" href={withBase("/fiction/")}>Browse fiction</a>
+        <a class="action action--quiet" href={withBase("/journal/")}>Read the journal</a>
+      </div>
+    </div>
+    <p class="hero__asset-note">Concept artwork for this first draft; not story canon.</p>
+  </section>
+
+  <section class="home-fiction" aria-labelledby="fiction-title">
+    <div class="home-section__heading">
+      <p>Published work</p>
+      <h2 id="fiction-title">Fiction</h2>
+      <Placeholder text={site.copy.fictionIntro} />
+    </div>
+    {
+      fiction.length > 0 ? (
+        <ol class="home-work-list">
+          {fiction.map((entry) => (
+            <li>
+              <a href={withBase(`/fiction/${entry.id}/`)}>{entry.data.title}</a>
+              <span>{entry.data.publication} · {entry.data.year}</span>
+            </li>
+          ))}
+        </ol>
+      ) : (
+        <div class="home-empty">
+          <p>Cleared publications will appear here.</p>
+          <span aria-hidden="true">↗</span>
+        </div>
+      )
+    }
+    <a class="section-link" href={withBase("/fiction/")}>Browse fiction</a>
+  </section>
+
+  <section class="home-journal" aria-labelledby="journal-title">
+    <div class="home-section__heading">
+      <p>News and working notes</p>
+      <h2 id="journal-title">Journal</h2>
+      <Placeholder text={site.copy.journalIntro} />
+    </div>
+    {
+      journal.length > 0 ? (
+        <ol class="home-journal-list">
+          {journal.map((entry) => (
+            <li>
+              <time datetime={entry.data.published.toISOString()}>{date.format(entry.data.published)}</time>
+              <a href={withBase(`/journal/${entry.id}/`)}>{entry.data.title}</a>
+            </li>
+          ))}
+        </ol>
+      ) : (
+        <p class="journal-empty">No public journal entries yet.</p>
+      )
+    }
+    <a class="section-link section-link--light" href={withBase("/journal/")}>Read the journal</a>
+  </section>
+
+  <section class="home-close" aria-label="About and contact">
+    <a href={withBase("/about/")}>
+      <span>About</span>
+      <Placeholder text={site.copy.aboutShort} />
+    </a>
+    <a href={withBase("/contact/")}>
+      <span>Contact</span>
+      <span class="home-close__plain">Social profiles and professional inquiries</span>
+    </a>
+  </section>
+</BaseLayout>
+
+<style>
+  .hero {
+    position: relative;
+    display: grid;
+    align-items: end;
+    min-height: min(58rem, 100svh);
+    overflow: hidden;
+    background: var(--night-deep);
+    color: white;
+    isolation: isolate;
+  }
+
+  .hero__image,
+  .hero__shade {
+    position: absolute;
+    inset: 0;
+  }
+
+  .hero__image :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    transform: scale(1.01);
+    animation: hero-advance linear both;
+    animation-timeline: scroll(root block);
+    animation-range: 0 85vh;
+  }
+
+  .hero__shade {
+    z-index: 1;
+    background:
+      linear-gradient(90deg, rgb(4 17 38 / 0.97) 0%, rgb(4 17 38 / 0.78) 28%, transparent 61%),
+      linear-gradient(0deg, rgb(4 17 38 / 0.8), transparent 32%);
+  }
+
+  .hero__content {
+    position: relative;
+    z-index: 2;
+    width: min(42rem, 48vw);
+    padding: 8rem var(--gutter) clamp(5rem, 9vw, 8rem);
+  }
+
+  .hero h1 {
+    max-width: 7ch;
+    margin: 0 0 2rem;
+    font-family: var(--font-display);
+    font-size: clamp(4.75rem, 10vw, 6rem);
+    font-weight: 700;
+    letter-spacing: -0.035em;
+    line-height: 0.75;
+    text-transform: uppercase;
+  }
+
+  .hero :global(.copy-placeholder) {
+    color: var(--sun);
+    background: rgb(4 17 38 / 0.9);
+    border-color: var(--sun);
+  }
+
+  .hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    margin-top: 2rem;
+  }
+
+  .action {
+    display: inline-flex;
+    align-items: center;
+    min-height: 3.3rem;
+    padding: 0.7rem 1.2rem;
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    text-decoration: none;
+    clip-path: polygon(0 0, 100% 0, calc(100% - 0.7rem) 100%, 0 100%);
+  }
+
+  .action--primary {
+    padding-right: 1.8rem;
+    background: var(--coral);
+    color: white;
+  }
+
+  .action--primary:hover {
+    background: var(--coral-dark);
+  }
+
+  .action--quiet {
+    color: var(--sky);
+    text-decoration: underline;
+    text-decoration-color: var(--sun);
+    text-underline-offset: 0.35em;
+  }
+
+  .hero__asset-note {
+    position: absolute;
+    z-index: 2;
+    right: var(--gutter);
+    bottom: 1rem;
+    margin: 0;
+    color: #c9dce0;
+    font-size: 0.76rem;
+  }
+
+  .home-fiction,
+  .home-journal {
+    display: grid;
+    grid-template-columns: minmax(18rem, 0.7fr) minmax(20rem, 1.3fr);
+    gap: clamp(3rem, 8vw, 9rem);
+    padding: var(--section-space) var(--gutter);
+  }
+
+  .home-fiction {
+    position: relative;
+    background: var(--sky);
+  }
+
+  .home-fiction::before {
+    position: absolute;
+    inset: -3.5rem 0 auto;
+    height: 3.6rem;
+    background: var(--sky);
+    clip-path: polygon(0 100%, 100% 0, 100% 100%);
+    content: "";
+  }
+
+  .home-journal {
+    background: var(--midnight);
+    color: var(--sky);
+  }
+
+  .home-section__heading > p {
+    margin: 0 0 0.5rem;
+    color: var(--ink-soft);
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .home-journal .home-section__heading > p {
+    color: var(--sun);
+  }
+
+  .home-section__heading h2 {
+    margin: 0 0 1.6rem;
+    font-family: var(--font-display);
+    font-size: clamp(4rem, 9vw, 6rem);
+    letter-spacing: -0.03em;
+    line-height: 0.8;
+  }
+
+  .home-work-list,
+  .home-journal-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .home-work-list li,
+  .home-journal-list li {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 1rem;
+    padding: 1.4rem 0;
+    border-bottom: 1px solid currentColor;
+  }
+
+  .home-work-list a,
+  .home-journal-list a {
+    font-family: var(--font-display);
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  .home-empty {
+    align-self: start;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 2rem;
+    min-height: 13rem;
+    padding: 2rem;
+    background: var(--sun);
+    color: var(--ink);
+    box-shadow: 0.9rem 1rem 0 var(--midnight);
+  }
+
+  .home-empty p,
+  .journal-empty {
+    margin: 0;
+    font-size: 1.2rem;
+  }
+
+  .home-empty span {
+    font-family: var(--font-display);
+    font-size: 5rem;
+    line-height: 0.7;
+  }
+
+  .section-link {
+    grid-column: 2;
+    justify-self: start;
+    margin-top: 2rem;
+    color: var(--coral-dark);
+    font-family: var(--font-display);
+    font-size: 1.35rem;
+    font-weight: 700;
+  }
+
+  .section-link--light {
+    color: var(--sun);
+  }
+
+  .home-close {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    background: var(--coral);
+  }
+
+  .home-close > a {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 3rem;
+    min-height: 21rem;
+    padding: clamp(2rem, 5vw, 5rem) var(--gutter);
+    color: white;
+    text-decoration: none;
+  }
+
+  .home-close > a:first-child {
+    background: var(--mineral);
+    clip-path: polygon(0 0, 100% 0, calc(100% - 3rem) 100%, 0 100%);
+  }
+
+  .home-close > a:hover {
+    background: var(--sun);
+    color: var(--ink);
+  }
+
+  .home-close > a > span:first-child {
+    font-family: var(--font-display);
+    font-size: clamp(4rem, 8vw, 6rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 0.8;
+  }
+
+  .home-close :global(.copy-placeholder) {
+    color: white;
+  }
+
+  .home-close__plain {
+    max-width: 23rem;
+    font-size: 1.05rem;
+  }
+
+  @keyframes hero-advance {
+    to {
+      transform: scale(1.055) translate3d(1.2%, -0.5%, 0);
+    }
+  }
+
+  @media (max-width: 760px) {
+    .hero {
+      display: block;
+      min-height: auto;
+      padding: 0;
+    }
+
+    .hero__image {
+      position: relative;
+      height: 56svh;
+      min-height: 25rem;
+    }
+
+    .hero__image :global(img) {
+      object-position: 72% center;
+    }
+
+    .hero__shade {
+      display: none;
+    }
+
+    .hero__content {
+      width: auto;
+      padding: 2.5rem var(--gutter) 4rem;
+      background: var(--night-deep);
+    }
+
+    .hero h1 {
+      margin-top: -5.4rem;
+      padding-top: 0.4rem;
+      text-shadow: 0.2rem 0.25rem 0 var(--night-deep);
+    }
+
+    .hero__asset-note {
+      right: var(--gutter);
+      bottom: 1rem;
+      left: var(--gutter);
+      text-align: right;
+    }
+
+    .home-fiction,
+    .home-journal,
+    .home-close {
+      grid-template-columns: 1fr;
+    }
+
+    .home-fiction,
+    .home-journal {
+      gap: 3rem;
+    }
+
+    .section-link {
+      grid-column: 1;
+    }
+
+    .home-close > a:first-child {
+      clip-path: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero__image :global(img) {
+      animation: none;
+      transform: none;
+    }
+  }
+</style>

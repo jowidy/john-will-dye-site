@@ -1,0 +1,75 @@
+---
+import BaseLayout from "../components/BaseLayout.astro";
+import PageIntro from "../components/PageIntro.astro";
+import Placeholder from "../components/Placeholder.astro";
+import { site } from "../config/site";
+---
+
+<BaseLayout title="Contact" description="Contact and public profiles for John Will Dye.">
+  <section class="page-shell">
+    <PageIntro title="Contact">
+      <Placeholder text={site.copy.contactIntro} block />
+    </PageIntro>
+    <div class="contact-route">
+      <div>
+        <h2>Direct contact</h2>
+        <Placeholder text={site.copy.directContact} block />
+      </div>
+      <div>
+        <h2>Representation</h2>
+        <p>
+          Literary representation: <a href="https://www.ethanellenberg.com/agents/evan-gregory/">Evan J Gregory,
+          Ethan Ellenberg Literary Agency</a>.
+        </p>
+      </div>
+    </div>
+    <ul class="social-list">
+      {
+        site.socials.map((social) => (
+          <li>
+            <a href={social.href} rel="me noopener noreferrer" target="_blank">
+              {social.label}<span class="visually-hidden"> (opens in a new tab)</span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+</BaseLayout>
+
+<style>
+  .contact-route {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(2rem, 6vw, 7rem);
+    max-width: 82rem;
+    margin: 0 auto;
+  }
+
+  .contact-route > div {
+    padding-top: 1.25rem;
+    border-top: 0.4rem solid var(--mineral);
+  }
+
+  h2 {
+    margin: 0 0 1rem;
+    font-family: var(--font-display);
+    font-size: 2.5rem;
+  }
+
+  p {
+    max-width: 34rem;
+    margin: 0;
+  }
+
+  a {
+    color: var(--coral-dark);
+    font-weight: 700;
+  }
+
+  @media (max-width: 760px) {
+    .contact-route {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

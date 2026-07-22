@@ -1,0 +1,15 @@
+---
+interface Props {
+  text: string;
+  block?: boolean;
+}
+
+const { text, block = false } = Astro.props;
+---
+
+<span
+  class:list={["copy-placeholder", { "copy-placeholder--block": block }]}
+  data-placeholder="true"
+>
+  {text}
+</span>
