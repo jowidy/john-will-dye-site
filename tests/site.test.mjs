@@ -137,3 +137,17 @@ test("the fiction intro does not double-stack vertical spacing before the shelf"
   const page = await readFile(new URL("../src/pages/fiction/index.astro", import.meta.url), "utf8");
   assert.match(page, /\.fiction-page :global\(\.page-intro\)\s*{[^}]*margin-bottom:\s*0/s);
 });
+
+test("interior pages use a stable intro flow and dedicated spacing rhythm", async () => {
+  const intro = await readFile(new URL("../src/components/PageIntro.astro", import.meta.url), "utf8");
+  const styles = await readFile(new URL("../src/styles/global.css", import.meta.url), "utf8");
+
+  assert.match(intro, /class="page-intro__heading"/);
+  assert.match(intro, /page-intro__heading[\s\S]*page-intro__label[\s\S]*<h1>/);
+  assert.match(styles, /--page-space-top:/);
+  assert.match(styles, /--page-space-bottom:/);
+  assert.match(styles, /--page-intro-gap:/);
+  assert.match(styles, /\.page-shell\s*{[^}]*padding:\s*var\(--page-space-top\)[^;]*var\(--page-space-bottom\)/s);
+  assert.match(styles, /\.prose-shell\s*{[^}]*padding:\s*var\(--page-space-top\)[^;]*var\(--page-space-bottom\)/s);
+  assert.doesNotMatch(styles, /\.page-shell\s*{[^}]*padding:\s*var\(--section-space\)/s);
+});
