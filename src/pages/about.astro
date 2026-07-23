@@ -17,8 +17,8 @@ import { site } from "../config/site";
       <aside>
         <h2>Representation</h2>
         <p>
-          John is represented by <a href="https://www.ethanellenberg.com/agents/evan-gregory/">Evan J Gregory</a>
-          at Ethan Ellenberg Literary Agency.
+          John is represented by <a href={site.representation.profileUrl}>{site.representation.agent}</a> at
+          <a href={site.representation.contactUrl}>{site.representation.agency}</a>.
         </p>
       </aside>
     </div>

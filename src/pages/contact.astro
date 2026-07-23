@@ -18,8 +18,12 @@ import { site } from "../config/site";
       <div>
         <h2>Representation</h2>
         <p>
-          Literary representation: <a href="https://www.ethanellenberg.com/agents/evan-gregory/">Evan J Gregory,
-          Ethan Ellenberg Literary Agency</a>.
+          John is represented by <a href={site.representation.profileUrl}>{site.representation.agent}</a> at
+          <a href={site.representation.contactUrl}>{site.representation.agency}</a>.
+        </p>
+        <p>
+          Rights and professional inquiries:<br />
+          <a href={`mailto:${site.representation.email}`}>{site.representation.email}</a>
         </p>
       </div>
     </div>
@@ -60,6 +64,10 @@ import { site } from "../config/site";
   p {
     max-width: 34rem;
     margin: 0;
+  }
+
+  p + p {
+    margin-top: 1rem;
   }
 
   a {

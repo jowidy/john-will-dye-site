@@ -61,7 +61,7 @@ const blogHref = substackUrl || withBase("/blog/");
           {fiction.map((entry) => (
             <li>
               <a href={withBase(`/fiction/${entry.id}/`)}>{entry.data.title}</a>
-              <span>{entry.data.publication} · {entry.data.year}</span>
+              <span>{entry.data.publication}</span>
             </li>
           ))}
         </ol>

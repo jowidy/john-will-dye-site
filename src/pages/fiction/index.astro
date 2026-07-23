@@ -30,7 +30,7 @@ const stories = entries.map((entry, index) => ({
   meta:
     entry.data.status === "coming-soon"
       ? "Coming Soon"
-      : [entry.data.publication, entry.data.year].filter(Boolean).join(" · "),
+      : (entry.data.publication ?? "Published"),
 }));
 ---
 

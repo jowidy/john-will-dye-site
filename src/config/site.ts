@@ -30,4 +30,11 @@ export const site = {
     url: "https://johnwilldye.substack.com/",
     feedUrl: "https://johnwilldye.substack.com/feed",
   },
+  representation: {
+    agent: "Evan J Gregory",
+    agency: "Ethan Ellenberg Literary Agency",
+    profileUrl: "https://www.ethanellenberg.com/agents/evan-gregory/",
+    contactUrl: "https://www.ethanellenberg.com/contact/",
+    email: "agent@ethanellenberg.com",
+  },
 } as const;

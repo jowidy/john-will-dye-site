@@ -45,6 +45,8 @@ test("the fiction shelf presents both story covers and the cleared public status
   assert.match(html, /Polacca/);
   assert.match(html, /polacca-cover/);
   assert.match(html, /Read the story/);
+  assert.match(html, /Pif Magazine, Issue 215/);
+  assert.doesNotMatch(html, /Issue 215\s*·\s*2015/);
   assert.match(html, /They stood in the beating sun, stumped/);
   assert.match(html, /best grilled cheese sandwich of your life/);
   assert.doesNotMatch(html, /asks for more than she wants to give/i);
@@ -55,11 +57,21 @@ test("the fiction shelf presents both story covers and the cleared public status
   assert.doesNotMatch(html, /photographs vanish|people begin to forget/i);
 });
 
+test("publication credits do not display dates", async () => {
+  for (const route of ["index", "fiction/index", "fiction/polacca/index"]) {
+    const html = await readRoute(route);
+    assert.doesNotMatch(html, /·\s*2015\s*</);
+  }
+});
+
 test("public profiles are present on the contact page", async () => {
   const html = await readRoute("contact/index");
   assert.match(html, /goodreads\.com/);
   assert.match(html, /x\.com\/johndyewrites/);
   assert.match(html, /facebook\.com\/john\.dye\.572064/);
+  assert.match(html, /Evan J Gregory/);
+  assert.match(html, /agent@ethanellenberg\.com/);
+  assert.match(html, /ethanellenberg\.com\/contact/);
 });
 
 test("the blog handoff points to the live Substack", async () => {
