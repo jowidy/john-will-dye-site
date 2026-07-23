@@ -1,23 +1,22 @@
 ---
 import BaseLayout from "../components/BaseLayout.astro";
 import PageIntro from "../components/PageIntro.astro";
-import Placeholder from "../components/Placeholder.astro";
 import { site } from "../config/site";
 ---
 
 <BaseLayout title="About" description="About fiction writer John Will Dye.">
   <section class="page-shell page-shell--sky">
     <PageIntro title="About John">
-      <Placeholder text={site.copy.aboutShort} block />
+      <p>{site.copy.aboutShort}</p>
     </PageIntro>
     <div class="about-grid">
       <div class="about-copy">
-        <Placeholder text={site.copy.aboutLong} block />
+        {site.copy.aboutLong.map((paragraph) => <p>{paragraph}</p>)}
       </div>
       <aside>
         <h2>Representation</h2>
         <p>
-          John is represented by <a href={site.representation.profileUrl}>{site.representation.agent}</a> at
+          John is represented by <a href={site.representation.profileUrl}>{site.representation.agent}</a>{" "}at{" "}
           <a href={site.representation.contactUrl}>{site.representation.agency}</a>.
         </p>
       </aside>
@@ -36,6 +35,16 @@ import { site } from "../config/site";
 
   .about-copy {
     min-height: 20rem;
+  }
+
+  .about-copy p {
+    max-width: 42rem;
+    margin: 0;
+    font-size: clamp(1.15rem, 1.6vw, 1.32rem);
+  }
+
+  .about-copy p + p {
+    margin-top: 1.4rem;
   }
 
   aside {

@@ -1,24 +1,26 @@
 ---
 import BaseLayout from "../components/BaseLayout.astro";
 import PageIntro from "../components/PageIntro.astro";
-import Placeholder from "../components/Placeholder.astro";
 import { site } from "../config/site";
 ---
 
 <BaseLayout title="Contact" description="Contact and public profiles for John Will Dye.">
   <section class="page-shell">
     <PageIntro title="Contact">
-      <Placeholder text={site.copy.contactIntro} block />
+      <p>{site.copy.contactIntro}</p>
     </PageIntro>
     <div class="contact-route">
       <div>
-        <h2>Direct contact</h2>
-        <Placeholder text={site.copy.directContact} block />
+        <h2>Readers</h2>
+        <p>
+          Stories and updates live on the <a href={site.substack.url}>Substack blog</a>. You can also find me on
+          Goodreads, X, and Facebook below.
+        </p>
       </div>
       <div>
         <h2>Representation</h2>
         <p>
-          John is represented by <a href={site.representation.profileUrl}>{site.representation.agent}</a> at
+          John is represented by <a href={site.representation.profileUrl}>{site.representation.agent}</a>{" "}at{" "}
           <a href={site.representation.contactUrl}>{site.representation.agency}</a>.
         </p>
         <p>

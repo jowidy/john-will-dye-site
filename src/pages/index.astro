@@ -9,7 +9,6 @@ FORM: Cinematic pulp-adventure title sequence, selected from the user-pinned pro
 import { getCollection } from "astro:content";
 import { Image } from "astro:assets";
 import BaseLayout from "../components/BaseLayout.astro";
-import Placeholder from "../components/Placeholder.astro";
 import { site } from "../config/site";
 import { withBase } from "../lib/url";
 import hero from "../assets/hero-ascent.png";
@@ -40,20 +39,19 @@ const blogHref = substackUrl || withBase("/blog/");
     <div class="hero__shade" aria-hidden="true"></div>
     <div class="hero__content">
       <h1 id="site-title">John<br />Will Dye</h1>
-      <Placeholder text={site.copy.homeLede} block />
+      <p class="hero__lede">{site.copy.homeLede}</p>
       <div class="hero__actions">
         <a class="action action--primary" href={withBase("/fiction/")}>Browse fiction</a>
         <a class="action action--quiet" href={blogHref}>Read the blog</a>
       </div>
     </div>
-    <p class="hero__asset-note">Concept artwork for this first draft; not story canon.</p>
   </section>
 
   <section class="home-fiction" aria-labelledby="fiction-title">
     <div class="home-section__heading">
       <p>Published work</p>
       <h2 id="fiction-title">Fiction</h2>
-      <Placeholder text={site.copy.fictionIntro} />
+      <p class="home-section__intro">{site.copy.fictionIntro}</p>
     </div>
     {
       fiction.length > 0 ? (
@@ -79,23 +77,17 @@ const blogHref = substackUrl || withBase("/blog/");
     <div class="home-section__heading">
       <p>News, events, and editions</p>
       <h2 id="blog-title">Blog</h2>
-      <Placeholder text={site.copy.blogIntro} />
+      <p class="home-section__intro">{site.copy.blogIntro}</p>
     </div>
     <div class="home-blog__destination">
-      {
-        substackUrl ? (
-          <a href={substackUrl}>Read on Substack <span aria-hidden="true">↗</span></a>
-        ) : (
-          <Placeholder text={site.copy.substackUrl} block />
-        )
-      }
+      <a href={substackUrl}>Read on Substack <span aria-hidden="true">↗</span></a>
     </div>
   </section>
 
   <section class="home-close" aria-label="About and contact">
     <a href={withBase("/about/")}>
       <span>About</span>
-      <Placeholder text={site.copy.aboutShort} />
+      <span class="home-close__plain">{site.copy.aboutShort}</span>
     </a>
     <a href={withBase("/contact/")}>
       <span>Contact</span>
@@ -158,10 +150,13 @@ const blogHref = substackUrl || withBase("/blog/");
     text-transform: uppercase;
   }
 
-  .hero :global(.copy-placeholder) {
+  .hero__lede {
+    max-width: 31rem;
+    margin: 0;
     color: var(--sun);
-    background: rgb(4 17 38 / 0.9);
-    border-color: var(--sun);
+    font-size: clamp(1.25rem, 2vw, 1.55rem);
+    font-weight: 700;
+    line-height: 1.4;
   }
 
   .hero__actions {
@@ -199,16 +194,6 @@ const blogHref = substackUrl || withBase("/blog/");
     text-decoration: underline;
     text-decoration-color: var(--sun);
     text-underline-offset: 0.35em;
-  }
-
-  .hero__asset-note {
-    position: absolute;
-    z-index: 2;
-    right: var(--gutter);
-    bottom: 1rem;
-    margin: 0;
-    color: #c9dce0;
-    font-size: 0.76rem;
   }
 
   .home-fiction,
@@ -318,6 +303,11 @@ const blogHref = substackUrl || withBase("/blog/");
     color: var(--sun);
   }
 
+  .home-section__intro {
+    max-width: 34rem;
+    margin: 0;
+  }
+
   .home-blog__destination {
     align-self: start;
     padding-block: 1.5rem;
@@ -380,10 +370,6 @@ const blogHref = substackUrl || withBase("/blog/");
     line-height: 0.8;
   }
 
-  .home-close :global(.copy-placeholder) {
-    color: white;
-  }
-
   .home-close__plain {
     max-width: 23rem;
     font-size: 1.05rem;
@@ -426,13 +412,6 @@ const blogHref = substackUrl || withBase("/blog/");
       margin-top: -5.4rem;
       padding-top: 0.4rem;
       text-shadow: 0.2rem 0.25rem 0 var(--night-deep);
-    }
-
-    .hero__asset-note {
-      right: var(--gutter);
-      bottom: 1rem;
-      left: var(--gutter);
-      text-align: right;
     }
 
     .home-fiction,

@@ -207,26 +207,6 @@ summary:focus-visible {
   font-size: 0.875rem;
 }
 
-.copy-placeholder {
-  display: inline;
-  color: #a92b20;
-  font-family: var(--font-reading);
-  font-size: 0.78em;
-  font-weight: 700;
-  letter-spacing: 0.035em;
-  text-transform: uppercase;
-  text-decoration: underline dotted currentColor 2px;
-  text-underline-offset: 0.28em;
-}
-
-.copy-placeholder--block {
-  display: block;
-  max-width: 34rem;
-  padding: 1rem 1.1rem;
-  background: #fff3ed;
-  border: 2px dotted var(--coral-dark);
-}
-
 .page-shell {
   min-height: 60vh;
   padding: var(--section-space) var(--gutter);

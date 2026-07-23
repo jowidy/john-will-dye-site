@@ -18,9 +18,9 @@ The header, homepage Blog block, and Blog page link to `https://johnwilldye.subs
 Copy `src/content/fiction/_template.md`, remove the leading underscore from the new filename, and replace every frontmatter value with cleared public information.
 Use `status: "published"` with a public URL for available work. For an announced title that is not yet available, use `status: "coming-soon"` and omit its publication, year, and URL until those details are cleared.
 
-## Replace provisional copy
+## Edit site copy
 
-Site-wide voice-bearing placeholders live in `src/config/site.ts`; work-specific descriptions live with their Markdown entries. Replace them only with copy John has written or approved.
+Site-wide copy lives in `src/config/site.ts`; work-specific descriptions live with their Markdown entries. Keep public copy concrete, reader-facing, and free of unannounced publication information.
 
 ## Publish
 

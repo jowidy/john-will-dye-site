@@ -3,7 +3,6 @@ import { getCollection } from "astro:content";
 import { Image } from "astro:assets";
 import BaseLayout from "../../components/BaseLayout.astro";
 import PageIntro from "../../components/PageIntro.astro";
-import Placeholder from "../../components/Placeholder.astro";
 import { site } from "../../config/site";
 import polaccaCover from "../../assets/fiction/polacca-cover.png";
 import morphemeCover from "../../assets/fiction/a-memorable-morpheme-cover.png";
@@ -36,7 +35,7 @@ const stories = entries.map((entry) => ({
 <BaseLayout title="Fiction" description="Stories by John Will Dye.">
   <section class="page-shell page-shell--sky fiction-page">
     <PageIntro title="Fiction" label="Stories">
-      <Placeholder text={site.copy.fictionIntro} block />
+      <p>{site.copy.fictionIntro}</p>
     </PageIntro>
 
     <div class="story-shelf">

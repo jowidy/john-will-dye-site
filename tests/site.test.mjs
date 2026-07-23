@@ -20,11 +20,19 @@ test("all primary routes build with navigation and the author name", async () =>
   }
 });
 
-test("the home page contains the original hero artwork and explicit placeholder copy", async () => {
+test("the home page contains the original hero artwork and the finished site promise", async () => {
   const html = await readRoute("index");
   assert.match(html, /hero-ascent/);
-  assert.match(html, /data-placeholder="true"/);
-  assert.match(html, /Concept artwork for this first draft/);
+  assert.match(html, /You&#39;re going places/);
+  assert.match(html, /You might not come back the same person/);
+});
+
+test("public pages contain no provisional copy markers", async () => {
+  for (const route of routes) {
+    const html = await readRoute(route);
+    assert.doesNotMatch(html, /data-placeholder="true"/);
+    assert.doesNotMatch(html, /TO WRITE|TO PROVIDE|PLACEHOLDER/i);
+  }
 });
 
 test("public output contains no embargoed publication language", async () => {

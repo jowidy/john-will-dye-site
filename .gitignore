@@ -35,6 +35,7 @@ yarn-error.log*
 # local generated output
 /outputs/
 /work/
+/.playwright-cli/
 
 # local product and design records; the GitHub repository will be public
 /PRODUCT.md

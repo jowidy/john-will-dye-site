@@ -1,6 +1,6 @@
 export const site = {
   name: "John Will Dye",
-  description: "Official website of fiction writer John Will Dye.",
+  description: "Science fiction, fantasy, and horror by John Will Dye.",
   nav: [
     { label: "Home", href: "/" },
     { label: "Fiction", href: "/fiction/" },
@@ -17,14 +17,18 @@ export const site = {
     { label: "Facebook", href: "https://www.facebook.com/john.dye.572064" },
   ],
   copy: {
-    homeLede: "HOMEPAGE INTRODUCTION — JOHN TO WRITE",
-    fictionIntro: "FICTION INTRODUCTION — JOHN TO WRITE",
-    blogIntro: "BLOG / SUBSTACK INTRODUCTION — JOHN TO WRITE",
-    substackUrl: "SUBSTACK URL — JOHN TO PROVIDE",
-    aboutShort: "SHORT AUTHOR INTRODUCTION — JOHN TO WRITE",
-    aboutLong: "AUTHOR BIOGRAPHY — JOHN TO WRITE OR APPROVE",
-    contactIntro: "CONTACT INTRODUCTION — JOHN TO WRITE",
-    directContact: "CONTACT ADDRESS OR FORM — JOHN TO PROVIDE",
+    homeLede: "You're going places. You might not come back the same person.",
+    fictionIntro:
+      "Airships, monsters, strange gods, dangerous words. People far from home, finding out what they can do when turning back is no longer an option.",
+    blogIntro:
+      "New fiction, work-in-progress notes, publication news, events, and special editions. Subscribe if you want to know when something new is ready.",
+    aboutShort: "I write science fiction, fantasy, horror, and stories closer to home.",
+    aboutLong: [
+      "My characters stand unarmed against armies, hold falling airships together, face the creatures inside them, and build new homes after the old ones are gone.",
+      "My short fiction includes \"Polacca\" and \"A Memorable Morpheme.\"",
+    ],
+    contactIntro:
+      "For rights and professional inquiries, contact my agent. For stories, updates, and conversation, you can find me at the links below.",
   },
   substack: {
     url: "https://johnwilldye.substack.com/",
