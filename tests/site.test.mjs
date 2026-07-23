@@ -48,7 +48,8 @@ test("the fiction shelf presents both story covers and the cleared public status
   assert.match(html, /A Memorable Morpheme/);
   assert.match(html, /a-memorable-morpheme-cover/);
   assert.match(html, /Coming Soon/);
-  assert.match(html, /The photographs vanish first/);
+  assert.match(html, /What happens next is unforgettable/);
+  assert.doesNotMatch(html, /photographs vanish|people begin to forget/i);
 });
 
 test("public profiles are present on the contact page", async () => {
