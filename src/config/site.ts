@@ -17,15 +17,13 @@ export const site = {
     { label: "Facebook", href: "https://www.facebook.com/john.dye.572064" },
   ],
   copy: {
-    homeLede: "You're going places. You might not come back the same person.",
-    fictionIntro:
-      "Airships, monsters, strange gods, dangerous words. People far from home, finding out what they can do when turning back is no longer an option.",
-    blogIntro:
-      "New fiction, work-in-progress notes, publication news, events, and special editions. Subscribe if you want to know when something new is ready.",
-    aboutShort: "I write science fiction, fantasy, horror, and stories closer to home.",
+    homeLede: "They might not recognize you when you get back home.",
+    fictionIntro: "The polished ramblings of a mostly-healthy mind.",
+    blogIntro: "The unpolished ramblings of a mostly-healthy mind.",
+    aboutShort:
+      "John wrote his first word when he was very young. He enjoyed this so much that he decided to write many more words.",
     aboutLong: [
-      "My characters stand unarmed against armies, hold falling airships together, face the creatures inside them, and build new homes after the old ones are gone.",
-      "My short fiction includes \"Polacca\" and \"A Memorable Morpheme.\"",
+      "Whether it's science fiction, fantasy, or horror, the most important piece is the person in the pincers... and what they do when they run out of options.",
     ],
     contactIntro:
       "For rights and professional inquiries, contact my agent. For stories, updates, and conversation, you can find me at the links below.",

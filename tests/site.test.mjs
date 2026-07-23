@@ -23,15 +23,15 @@ test("all primary routes build with navigation and the author name", async () =>
 test("the home page contains the original hero artwork and the finished site promise", async () => {
   const html = await readRoute("index");
   assert.match(html, /hero-ascent/);
-  assert.match(html, /You&#39;re going places/);
-  assert.match(html, /You might not come back the same person/);
+  assert.match(html, /They might not recognize you/);
+  assert.match(html, /when you get back home/);
 });
 
 test("public pages contain no provisional copy markers", async () => {
   for (const route of routes) {
     const html = await readRoute(route);
     assert.doesNotMatch(html, /data-placeholder="true"/);
-    assert.doesNotMatch(html, /TO WRITE|TO PROVIDE|PLACEHOLDER/i);
+    assert.doesNotMatch(html, /JOHN TO WRITE|JOHN TO PROVIDE|COPY TO BE WRITTEN|PLACEHOLDER/i);
   }
 });
 
