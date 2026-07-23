@@ -11,6 +11,7 @@ const fiction = defineCollection({
     description: z.string(),
     url: z.url().optional(),
     status: z.enum(["published", "coming-soon"]).default("published"),
+    tags: z.array(z.string()).default([]),
     order: z.number().default(0),
     draft: z.boolean().default(false),
   }),

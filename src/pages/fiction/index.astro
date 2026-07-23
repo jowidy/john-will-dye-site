@@ -23,9 +23,8 @@ const covers = {
   },
 } as const;
 
-const stories = entries.map((entry, index) => ({
+const stories = entries.map((entry) => ({
   entry,
-  number: String(index + 1).padStart(2, "0"),
   cover: covers[entry.id as keyof typeof covers],
   meta:
     entry.data.status === "coming-soon"
@@ -42,10 +41,9 @@ const stories = entries.map((entry, index) => ({
 
     <div class="story-shelf">
       {
-        stories.map(({ entry, number, cover, meta }, index) => (
+        stories.map(({ entry, cover, meta }, index) => (
           <article class:list={["story", index % 2 === 1 && "story--reverse", `story--${entry.id}`]}>
             <div class="story__cover-wrap">
-              <span class="story__number" aria-hidden="true">{number}</span>
               {cover && (
                 <Image
                   class="story__cover"
@@ -61,9 +59,16 @@ const stories = entries.map((entry, index) => ({
             </div>
 
             <div class="story__copy">
-              <p class:list={["story__status", entry.data.status === "coming-soon" && "story__status--soon"]}>
-                {meta}
-              </p>
+              <div class="story__labels">
+                <p class:list={["story__status", entry.data.status === "coming-soon" && "story__status--soon"]}>
+                  {meta}
+                </p>
+                {entry.data.tags.length > 0 && (
+                  <ul class="story__tags" aria-label={`Tags for ${entry.data.title}`}>
+                    {entry.data.tags.map((tag) => <li>{tag}</li>)}
+                  </ul>
+                )}
+              </div>
               <h2>{entry.data.title}</h2>
               <p class="story__teaser">{entry.data.description}</p>
               {entry.data.url && (
@@ -150,25 +155,6 @@ const stories = entries.map((entry, index) => ({
     box-shadow: -1.1rem 1.2rem 0 rgb(217 67 47 / 0.72);
   }
 
-  .story__number {
-    position: absolute;
-    z-index: 2;
-    top: -2.8rem;
-    left: -2rem;
-    color: var(--coral);
-    font-family: var(--font-display);
-    font-size: clamp(5rem, 10vw, 9rem);
-    font-weight: 700;
-    line-height: 1;
-    text-shadow: 0.18rem 0.18rem 0 var(--sky);
-  }
-
-  .story--reverse .story__number {
-    right: -2rem;
-    left: auto;
-    color: var(--sun);
-  }
-
   .story__copy {
     max-width: 38rem;
   }
@@ -180,10 +166,22 @@ const stories = entries.map((entry, index) => ({
     color: var(--sky);
   }
 
+  .story__labels,
+  .story__tags {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.7rem;
+  }
+
+  .story__labels {
+    margin-bottom: 1.3rem;
+  }
+
   .story__status {
     display: inline-block;
-    margin: 0 0 1.1rem;
-    color: var(--mineral-dark);
+    margin: 0;
+    color: var(--mineral);
     font-family: var(--font-display);
     font-size: 1rem;
     font-weight: 700;
@@ -196,6 +194,44 @@ const stories = entries.map((entry, index) => ({
     background: var(--coral);
     color: white;
     clip-path: polygon(0 0, 100% 0, calc(100% - 0.45rem) 100%, 0 100%);
+  }
+
+  .story__tags {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .story__tags li {
+    padding: 0.42rem 0.72rem 0.36rem;
+    background: var(--midnight);
+    box-shadow: 0.2rem 0.2rem 0 var(--coral);
+    color: var(--sky);
+    clip-path: polygon(0.35rem 0, 100% 0, calc(100% - 0.22rem) 100%, 0 92%);
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: 0.055em;
+    line-height: 1;
+    text-transform: uppercase;
+    transform: rotate(-1.25deg);
+  }
+
+  .story__tags li:nth-child(even) {
+    background: var(--mineral);
+    transform: translateY(0.08rem) rotate(1deg);
+  }
+
+  .story--reverse .story__tags li {
+    background: var(--sun);
+    box-shadow: 0.2rem 0.2rem 0 var(--coral);
+    color: var(--ink);
+  }
+
+  .story--reverse .story__tags li:nth-child(even) {
+    background: var(--coral);
+    box-shadow: 0.2rem 0.2rem 0 var(--sun);
+    color: white;
   }
 
   .story h2 {
@@ -297,12 +333,6 @@ const stories = entries.map((entry, index) => ({
       grid-row: 2;
       grid-column: 1;
       justify-self: start;
-    }
-
-    .story__number,
-    .story--reverse .story__number {
-      right: auto;
-      left: -1.2rem;
     }
 
     .story h2 {

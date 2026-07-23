@@ -5,8 +5,9 @@ year: 2026
 description: "Replace with John's approved description."
 url: "https://example.com/replace-this-url"
 status: "published"
+tags: ["Replace", "These"]
 order: 0
 draft: true
 ---
 
-This body is optional. The Fiction index uses the frontmatter above. For an announced work without a public link, omit `publication`, `year`, and `url`, and set `status: "coming-soon"`.
+This body is optional. The Fiction index uses the frontmatter above. Use two concise tags that describe the reader's experience. For an announced work without a public link, omit `publication`, `year`, and `url`, and set `status: "coming-soon"`.

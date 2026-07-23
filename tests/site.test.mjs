@@ -53,6 +53,11 @@ test("the fiction shelf presents both story covers and the cleared public status
   assert.match(html, /A Memorable Morpheme/);
   assert.match(html, /a-memorable-morpheme-cover/);
   assert.match(html, /Coming Soon/);
+  assert.match(html, /Weird/);
+  assert.match(html, /Horror/);
+  assert.match(html, /Coming of Age/);
+  assert.match(html, /Desert/);
+  assert.doesNotMatch(html, /story__number/);
   assert.match(html, /What happens next is unforgettable/);
   assert.doesNotMatch(html, /photographs vanish|people begin to forget/i);
 });
