@@ -61,6 +61,8 @@ test("the fiction shelf presents both story covers and the cleared public status
   assert.match(html, /A Memorable Morpheme/);
   assert.match(html, /a-memorable-morpheme-cover/);
   assert.match(html, /Coming Soon/);
+  assert.match(html, /story__cover-status[^>]*>Coming Soon/);
+  assert.doesNotMatch(html, /story__status--soon/);
   assert.match(html, /Weird/);
   assert.match(html, /Horror/);
   assert.match(html, />YA</);
