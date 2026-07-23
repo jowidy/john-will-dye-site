@@ -110,3 +110,8 @@ test("the navigation remains legible while it sticks during scrolling", async ()
   assert.match(styles, /\.site-header--hero\.site-header--scrolled::after\s*{[^}]*opacity:\s*1/s);
   assert.match(styles, /@media \(prefers-reduced-motion: reduce\)/);
 });
+
+test("the fiction intro does not double-stack vertical spacing before the shelf", async () => {
+  const page = await readFile(new URL("../src/pages/fiction/index.astro", import.meta.url), "utf8");
+  assert.match(page, /\.fiction-page :global\(\.page-intro\)\s*{[^}]*margin-bottom:\s*0/s);
+});
