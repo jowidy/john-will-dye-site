@@ -8,7 +8,7 @@ description: |-
   Finally, Jason smiled and leaned on his mower. “I’ll tell you what,” he said. “How would you like to have the best grilled cheese sandwich of your life?”
 url: "https://www.pifmagazine.com/2015/04/polacca/"
 status: "published"
-tags: ["Coming of Age", "Desert"]
+tags: ["YA", "Lit"]
 order: 10
 draft: false
 ---
