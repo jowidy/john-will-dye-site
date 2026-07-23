@@ -23,8 +23,8 @@ test("all primary routes build with navigation and the author name", async () =>
 test("the home page contains the original hero artwork and the finished site promise", async () => {
   const html = await readRoute("index");
   assert.match(html, /hero-ascent/);
-  assert.match(html, /They might not recognize you/);
-  assert.match(html, /when you get back home/);
+  assert.match(html, /Set out curious\.<\/span><span[^>]*>Come back changed\./);
+  assert.doesNotMatch(html, /They might not recognize you/);
 });
 
 test("public pages contain no provisional copy markers", async () => {

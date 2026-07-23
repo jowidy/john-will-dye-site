@@ -17,7 +17,7 @@ export const site = {
     { label: "Facebook", href: "https://www.facebook.com/john.dye.572064" },
   ],
   copy: {
-    homeLede: "They might not recognize you when you get back home.",
+    homeLede: ["Set out curious.", "Come back changed."],
     fictionIntro: "The polished ramblings of a mostly-healthy mind.",
     blogIntro: "The unpolished ramblings of a mostly-healthy mind.",
     aboutShort:

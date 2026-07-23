@@ -39,7 +39,9 @@ const blogHref = substackUrl || withBase("/blog/");
     <div class="hero__shade" aria-hidden="true"></div>
     <div class="hero__content">
       <h1 id="site-title">John<br />Will Dye</h1>
-      <p class="hero__lede">{site.copy.homeLede}</p>
+      <p class="hero__lede">
+        {site.copy.homeLede.map((line) => <span>{line}</span>)}
+      </p>
       <div class="hero__actions">
         <a class="action action--primary" href={withBase("/fiction/")}>Browse fiction</a>
         <a class="action action--quiet" href={blogHref}>Read the blog</a>
@@ -157,6 +159,10 @@ const blogHref = substackUrl || withBase("/blog/");
     font-size: clamp(1.25rem, 2vw, 1.55rem);
     font-weight: 700;
     line-height: 1.4;
+  }
+
+  .hero__lede span {
+    display: block;
   }
 
   .hero__actions {
