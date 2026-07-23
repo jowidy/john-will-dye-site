@@ -1,11 +1,22 @@
 ---
+import { getImage, Image } from "astro:assets";
 import BaseLayout from "../components/BaseLayout.astro";
 import PageIntro from "../components/PageIntro.astro";
+import portraitOriginal from "../assets/john-dye-portrait.png";
+import portrait from "../assets/john-dye-portrait-transparent.png";
 import { site } from "../config/site";
+
+const socialPortrait = await getImage({
+  src: portraitOriginal,
+  width: 760,
+  format: "webp",
+  quality: 86,
+});
 ---
 
-<BaseLayout title="About" description="About fiction writer John Will Dye.">
-  <section class="page-shell page-shell--sky">
+<BaseLayout title="About" description="About fiction writer John Will Dye." image={socialPortrait.src}>
+  <section class="page-shell page-shell--sky" itemscope itemtype="https://schema.org/Person">
+    <meta itemprop="name" content={site.name} />
     <PageIntro title="About John">
       <p>{site.copy.aboutShort}</p>
     </PageIntro>
@@ -14,6 +25,20 @@ import { site } from "../config/site";
         {site.copy.aboutLong.map((paragraph) => <p>{paragraph}</p>)}
       </div>
       <aside>
+        <figure class="about-portrait">
+          <div class="about-portrait__frame">
+            <Image
+              src={portrait}
+              alt="John Will Dye"
+              widths={[480, 760, 999]}
+              sizes="(max-width: 760px) min(88vw, 26rem), min(30vw, 24rem)"
+              format="webp"
+              quality={90}
+              loading="eager"
+              itemprop="image"
+            />
+          </div>
+        </figure>
         <h2>Representation</h2>
         <p>
           John is represented by <a href={site.representation.profileUrl}>{site.representation.agent}</a>{" "}at{" "}
@@ -47,6 +72,39 @@ import { site } from "../config/site";
     margin-top: 1.4rem;
   }
 
+  .about-portrait {
+    position: relative;
+    isolation: isolate;
+    width: min(100%, 24rem);
+    margin: 0 0 3.2rem;
+  }
+
+  .about-portrait::before {
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    background: var(--coral);
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 1.8rem), calc(100% - 1.8rem) 100%, 0 100%);
+    content: "";
+    transform: translate(0.8rem, 0.9rem);
+  }
+
+  .about-portrait__frame {
+    position: relative;
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+    background: var(--sun);
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 1.8rem), calc(100% - 1.8rem) 100%, 0 100%);
+  }
+
+  .about-portrait__frame :global(img) {
+    position: absolute;
+    inset: 0 auto auto 0;
+    width: 100%;
+    max-width: none;
+    height: auto;
+  }
+
   aside {
     align-self: start;
     padding-top: 1.2rem;
@@ -71,6 +129,33 @@ import { site } from "../config/site";
   @media (max-width: 760px) {
     .about-grid {
       grid-template-columns: 1fr;
+    }
+
+    .about-copy {
+      min-height: 0;
+    }
+
+    aside {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(12rem, 0.75fr);
+      gap: 0 2rem;
+      align-items: start;
+    }
+
+    .about-portrait {
+      grid-row: 1 / span 2;
+      margin-bottom: 0;
+    }
+  }
+
+  @media (max-width: 540px) {
+    aside {
+      display: block;
+    }
+
+    .about-portrait {
+      width: min(92%, 24rem);
+      margin-bottom: 3.2rem;
     }
   }
 </style>

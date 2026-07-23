@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { readFile } from "node:fs/promises";
+import { readFile, stat } from "node:fs/promises";
 import test from "node:test";
 
 const routes = ["index", "fiction/index", "blog/index", "about/index", "contact/index"];
@@ -89,6 +89,20 @@ test("public profiles are present on the contact page", async () => {
   assert.match(html, /ethanellenberg\.com\/contact/);
 });
 
+test("the about page includes the branded author portrait", async () => {
+  const html = await readRoute("about/index");
+  const original = await stat(new URL("../src/assets/john-dye-portrait.png", import.meta.url));
+  const transparent = await stat(new URL("../src/assets/john-dye-portrait-transparent.png", import.meta.url));
+
+  assert.ok(original.size > 0);
+  assert.ok(transparent.size > 0);
+  assert.match(html, /john-dye-portrait-transparent/);
+  assert.match(html, /property="og:image"[^>]*john-dye-portrait/);
+  assert.match(html, /name="twitter:card" content="summary_large_image"/);
+  assert.match(html, /alt="John Will Dye"/);
+  assert.match(html, /itemprop="image"/);
+});
+
 test("the blog handoff points to the live Substack", async () => {
   const home = await readRoute("index");
   const blog = await readRoute("blog/index");
@@ -109,6 +123,13 @@ test("the navigation remains legible while it sticks during scrolling", async ()
   assert.match(styles, /\.site-header--hero\s*{[^}]*position:\s*fixed/s);
   assert.match(styles, /\.site-header--hero\.site-header--scrolled::after\s*{[^}]*opacity:\s*1/s);
   assert.match(styles, /@media \(prefers-reduced-motion: reduce\)/);
+});
+
+test("the homepage contact hover fills beneath the slanted about panel", async () => {
+  const page = await readFile(new URL("../src/pages/index.astro", import.meta.url), "utf8");
+  assert.match(page, /\.home-close > a:first-child\s*{[^}]*z-index:\s*1/s);
+  assert.match(page, /\.home-close > a:last-child\s*{[^}]*margin-left:\s*-3rem/s);
+  assert.match(page, /@media \(max-width:\s*760px\)[\s\S]*\.home-close > a:last-child\s*{[^}]*margin-left:\s*0/s);
 });
 
 test("the fiction intro does not double-stack vertical spacing before the shelf", async () => {

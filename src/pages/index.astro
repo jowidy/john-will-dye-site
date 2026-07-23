@@ -359,8 +359,15 @@ const blogHref = substackUrl || withBase("/blog/");
   }
 
   .home-close > a:first-child {
+    position: relative;
+    z-index: 1;
     background: var(--mineral);
     clip-path: polygon(0 0, 100% 0, calc(100% - 3rem) 100%, 0 100%);
+  }
+
+  .home-close > a:last-child {
+    margin-left: -3rem;
+    padding-left: calc(var(--gutter) + 3rem);
   }
 
   .home-close > a:hover {
@@ -437,6 +444,11 @@ const blogHref = substackUrl || withBase("/blog/");
 
     .home-close > a:first-child {
       clip-path: none;
+    }
+
+    .home-close > a:last-child {
+      margin-left: 0;
+      padding-left: var(--gutter);
     }
   }
 
