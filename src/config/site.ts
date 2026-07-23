@@ -10,6 +10,10 @@ export const site = {
   ],
   socials: [
     {
+      label: "Ream",
+      href: "https://reamstories.com/johnwilldye",
+    },
+    {
       label: "Goodreads",
       href: "https://www.goodreads.com/author/show/7546503.John_William_Dye",
     },
@@ -31,6 +35,9 @@ export const site = {
   substack: {
     url: "https://johnwilldye.substack.com/",
     feedUrl: "https://johnwilldye.substack.com/feed",
+  },
+  ream: {
+    url: "https://reamstories.com/johnwilldye",
   },
   representation: {
     agent: "Evan J Gregory",

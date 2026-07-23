@@ -326,7 +326,7 @@ summary:focus-visible {
 
 .social-list {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 1px;
   max-width: 82rem;
   margin: 4rem auto 0;

@@ -82,6 +82,7 @@ test("publication credits do not display dates", async () => {
 test("public profiles are present on the contact page", async () => {
   const html = await readRoute("contact/index");
   assert.match(html, /goodreads\.com/);
+  assert.match(html, /reamstories\.com\/johnwilldye/);
   assert.match(html, /x\.com\/johndyewrites/);
   assert.match(html, /facebook\.com\/john\.dye\.572064/);
   assert.match(html, /Evan J Gregory/);
