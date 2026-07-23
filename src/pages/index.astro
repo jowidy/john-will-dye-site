@@ -14,7 +14,10 @@ import { site } from "../config/site";
 import { withBase } from "../lib/url";
 import hero from "../assets/hero-ascent.png";
 
-const fiction = (await getCollection("fiction", ({ data }) => !data.draft))
+const fiction = (await getCollection(
+  "fiction",
+  ({ data }) => !data.draft && data.status === "published",
+))
   .sort((a, b) => b.data.order - a.data.order)
   .slice(0, 3);
 const substackUrl = site.substack.url.trim();

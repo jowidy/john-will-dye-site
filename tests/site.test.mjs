@@ -30,14 +30,25 @@ test("the home page contains the original hero artwork and explicit placeholder 
 test("public output contains no embargoed publication language", async () => {
   for (const route of routes) {
     const html = await readRoute(route);
-    const embargoedTitle = ["Memorable", "Morpheme"].join(" ");
     const acceptanceClaim = ["accepted", "for", "publication"].join(" ");
     const prematureStatus = ["forth", "coming"].join("");
 
-    assert.doesNotMatch(html, new RegExp(embargoedTitle, "i"));
     assert.doesNotMatch(html, new RegExp(acceptanceClaim, "i"));
     assert.doesNotMatch(html, new RegExp(prematureStatus, "i"));
+    assert.doesNotMatch(html, /Bombay Literary Magazine/i);
   }
+});
+
+test("the fiction shelf presents both story covers and the cleared public status", async () => {
+  const html = await readRoute("fiction/index");
+
+  assert.match(html, /Polacca/);
+  assert.match(html, /polacca-cover/);
+  assert.match(html, /Read the story/);
+  assert.match(html, /A Memorable Morpheme/);
+  assert.match(html, /a-memorable-morpheme-cover/);
+  assert.match(html, /Coming Soon/);
+  assert.match(html, /The photographs vanish first/);
 });
 
 test("public profiles are present on the contact page", async () => {

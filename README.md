@@ -13,9 +13,10 @@ npm run dev
 
 The header, homepage Blog block, and Blog page link to `https://johnwilldye.substack.com/`. Posts and subscribers remain managed there. If the publication URL changes, update `site.substack.url` and `site.substack.feedUrl` in `src/config/site.ts`.
 
-## Add published fiction
+## Add fiction
 
 Copy `src/content/fiction/_template.md`, remove the leading underscore from the new filename, and replace every frontmatter value with cleared public information.
+Use `status: "published"` with a public URL for available work. For an announced title that is not yet available, use `status: "coming-soon"` and omit its publication, year, and URL until those details are cleared.
 
 ## Replace provisional copy
 
