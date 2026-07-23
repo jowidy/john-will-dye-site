@@ -45,6 +45,9 @@ test("the fiction shelf presents both story covers and the cleared public status
   assert.match(html, /Polacca/);
   assert.match(html, /polacca-cover/);
   assert.match(html, /Read the story/);
+  assert.match(html, /They stood in the beating sun, stumped/);
+  assert.match(html, /best grilled cheese sandwich of your life/);
+  assert.doesNotMatch(html, /asks for more than she wants to give/i);
   assert.match(html, /A Memorable Morpheme/);
   assert.match(html, /a-memorable-morpheme-cover/);
   assert.match(html, /Coming Soon/);

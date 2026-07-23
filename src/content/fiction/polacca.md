@@ -2,7 +2,10 @@
 title: "Polacca"
 publication: "Pif Magazine, Issue 215"
 year: 2015
-description: "After her mother’s funeral, Lyla arrives in Arizona with a suitcase she refuses to unpack. The only boy she knows offers her a way out of the empty house—and then asks for more than she wants to give."
+description: |-
+  They stood in the beating sun, stumped. Lyla didn’t want the conversation to end.
+
+  Finally, Jason smiled and leaned on his mower. “I’ll tell you what,” he said. “How would you like to have the best grilled cheese sandwich of your life?”
 url: "https://www.pifmagazine.com/2015/04/polacca/"
 status: "published"
 order: 10
